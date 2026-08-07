@@ -1,0 +1,87 @@
+{{ define "main" }}
+<section class="hero">
+  <img class="hero-logo" src="{{ "img/logo.svg" | relURL }}" alt="go-freedesktop logo" width="96" height="96">
+  <h1><span class="accent">{{ .Site.Params.heroAccent }}</span></h1>
+  {{ with .Site.Params.heroTagline }}<p class="tag">{{ . }}</p>{{ end }}
+  <div class="pills">
+    <span class="pill">CGO_ENABLED=0</span>
+    <span class="pill">6 specs</span>
+    <span class="pill">XDG-native</span>
+    <span class="pill">100% coverage</span>
+    <span class="pill">BSD-3-Clause</span>
+  </div>
+  <div class="intro">
+    {{ range .Site.Params.heroIntro }}<p>{{ . | safeHTML }}</p>{{ end }}
+  </div>
+</section>
+
+<section id="why">
+  <h2>Why go-freedesktop</h2>
+  <p>
+    Talking to a Linux desktop from Go usually means shelling out to <code>gio</code>,
+    <code>xdg-mime</code> or <code>notify-send</code>, or binding GLib/GIO through cgo.
+    go-freedesktop implements the underlying <a href="https://www.freedesktop.org/">freedesktop.org</a>
+    specifications directly &mdash; parsing the same on-disk files and speaking the same
+    D-Bus interface &mdash; in <strong>pure Go with cgo disabled</strong>. One small module
+    per spec, reusing standard XDG base-directory resolution, so a launcher, file manager
+    or shell pulls in only the layer it needs and cross-compiles to a static binary.
+  </p>
+</section>
+
+<section id="repos">
+  <h2>Modules</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="kind">lib</span>
+      <h4><a href="https://github.com/go-freedesktop/desktopentry">desktopentry</a></h4>
+      <p>Implements the <a href="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Desktop Entry</a> spec: enumerate the installed applications and expand their <code>Exec=</code> launch commands (field codes, <code>TryExec</code>, actions) &mdash; what a dock or app menu needs.</p>
+    </div>
+    <div class="card">
+      <span class="kind">lib</span>
+      <h4><a href="https://github.com/go-freedesktop/icontheme">icontheme</a></h4>
+      <p>Implements the <a href="https://specifications.freedesktop.org/icon-theme/latest/">Icon Theme</a> spec: resolve an icon <em>name</em> to a file <em>path</em> at a target size and scale, following theme inheritance and the hicolor fallback.</p>
+    </div>
+    <div class="card">
+      <span class="kind">lib</span>
+      <h4><a href="https://github.com/go-freedesktop/mime">mime</a></h4>
+      <p>Implements the <a href="https://specifications.freedesktop.org/shared-mime-info-spec/latest/">Shared MIME-info Database</a>: resolve a canonical MIME type from a file's name, its content (magic), or both, against the on-disk database.</p>
+    </div>
+    <div class="card">
+      <span class="kind">lib</span>
+      <h4><a href="https://github.com/go-freedesktop/mimeapps">mimeapps</a></h4>
+      <p>Implements the <a href="https://specifications.freedesktop.org/mime-apps-spec/latest/">MIME Applications Associations</a> spec (<code>mimeapps.list</code>): the default application and the ordered candidate list for a type, with round-trippable edits &mdash; the engine behind &ldquo;Open With&hellip;&rdquo;.</p>
+    </div>
+    <div class="card">
+      <span class="kind">lib</span>
+      <h4><a href="https://github.com/go-freedesktop/menu">menu</a></h4>
+      <p>Implements the <a href="https://specifications.freedesktop.org/menu-spec/latest/">Desktop Menu</a> spec: turn <code>applications.menu</code> XML into a resolved, categorized tree of app entries (Accessories, Graphics, System, &hellip;) for a launcher.</p>
+    </div>
+    <div class="card">
+      <span class="kind">lib</span>
+      <h4><a href="https://github.com/go-freedesktop/notifications">notifications</a></h4>
+      <p>Implements the <a href="https://specifications.freedesktop.org/notification-spec/latest/">Desktop Notifications</a> spec: the <code>org.freedesktop.Notifications</code> D-Bus <em>service</em> side &mdash; decode <code>Notify</code> calls and render them as <a href="https://github.com/go-widgets/toolkit">go-widgets</a> <code>Toast</code>s.</p>
+    </div>
+    <div class="card">
+      <span class="kind">docs</span>
+      <h4><a href="https://go-freedesktop.github.io/docs/">docs</a></h4>
+      <p>Versioned documentation site (MkDocs Material + mike): one page per module with the API surface and usage. <a href="https://github.com/go-freedesktop/docs">Source &rarr;</a></p>
+    </div>
+    <div class="card">
+      <span class="kind">brand</span>
+      <h4><a href="https://github.com/go-freedesktop/brand">brand</a></h4>
+      <p>Logos and icons for the organization, in SVG / PNG / JPG / ICO / ICNS across colour, white and black variants.</p>
+    </div>
+  </div>
+</section>
+
+<section id="quality">
+  <h2>Quality bar</h2>
+  <ul class="features">
+    <li><strong>Pure Go.</strong> <code>CGO_ENABLED=0</code> across the org &mdash; no D-Bus C library, no GLib, no external tools.</li>
+    <li><strong>Reuse, don't reinvent.</strong> XDG base-directory resolution comes from a shared library; later waves build on the earlier ones (<code>mimeapps</code> and <code>menu</code> stand on <code>desktopentry</code>).</li>
+    <li><strong>100% test coverage</strong> is the bar, error branches included, on native amd64/arm64 plus emulated 64-bit targets.</li>
+    <li><strong>Spec-faithful.</strong> Parses the same on-disk files and speaks the same D-Bus interface as the reference tools, so it interoperates with the rest of the desktop.</li>
+    <li><strong>BSD-3-Clause</strong> on every source file.</li>
+  </ul>
+</section>
+{{ end }}
