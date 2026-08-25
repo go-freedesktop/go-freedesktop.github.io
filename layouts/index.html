@@ -62,6 +62,21 @@
       <p>Implements the <a href="https://specifications.freedesktop.org/notification-spec/latest/">Desktop Notifications</a> spec: the <code>org.freedesktop.Notifications</code> D-Bus <em>service</em> side &mdash; decode <code>Notify</code> calls and render them as <a href="https://github.com/go-widgets/toolkit">go-widgets</a> <code>Toast</code>s.</p>
     </div>
     <div class="card">
+      <span class="kind">core</span>
+      <h4><a href="https://github.com/go-freedesktop/x11">x11</a></h4>
+      <p>The foundation every X11 client needs before it can say anything of its own: the wire codec, the <code>.Xauthority</code> parser, the connection-setup exchange, the shared-memory segment MIT-SHM attaches, and the unix transport that hands the server a descriptor over <code>SCM_RIGHTS</code>. No Xlib, no XCB &mdash; the bytes, and deliberately nothing above them. Shared by <code>screencast</code> and <a href="https://github.com/go-widgets/window">go-widgets/window</a>, so one protocol parser cannot drift into two.</p>
+    </div>
+    <div class="card">
+      <span class="kind">lib</span>
+      <h4><a href="https://github.com/go-freedesktop/screencast">screencast</a></h4>
+      <p>Capture the pixels of displays and windows on Linux: MIT-SHM 1.2 with descriptor passing, the core <code>GetImage</code> fallback, RANDR 1.5 and XINERAMA monitor enumeration, XFIXES cursor. No shelling out to <code>xwd</code>, <code>import</code> or <code>grim</code>. Wayland is <em>not</em> implemented and says so: <code>Diagnose</code> reports when a session can only be captured through the portal's PipeWire stream, rather than failing obscurely.</p>
+    </div>
+    <div class="card">
+      <span class="kind">lib</span>
+      <h4><a href="https://github.com/go-freedesktop/secretservice">secretservice</a></h4>
+      <p>Client for the <a href="https://specifications.freedesktop.org/secret-service-spec/latest/">Secret Service</a> API (<code>org.freedesktop.Secret.Service</code>) over D-Bus: GNOME Keyring and KWallet secret storage, the Linux side of <a href="https://github.com/go-keyring">go-keyring</a>.</p>
+    </div>
+    <div class="card">
       <span class="kind">docs</span>
       <h4><a href="https://go-freedesktop.github.io/docs/">docs</a></h4>
       <p>Versioned documentation site (MkDocs Material + mike): one page per module with the API surface and usage. <a href="https://github.com/go-freedesktop/docs">Source &rarr;</a></p>
